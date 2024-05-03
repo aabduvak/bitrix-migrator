@@ -12,12 +12,22 @@ class Bitrix:
 	def call(self, method: str, params: dict = None):
 		endpoint = "{url}/{method}.{res_type}".format(url=self.url, method=method, res_type=self.res_type)
 
-		time.sleep(0.8)
-		if params:
-			response = requests.post(endpoint, json=params)
-		else:
-			response = requests.post(endpoint)
+		retries = 3
+		delay = 2  # seconds
+		while retries > 0:
+			try:
+				time.sleep(0.8)
+				if params:
+					response = requests.post(endpoint, json=params)
+				else:
+					response = requests.post(endpoint)
 
-		if response.status_code == 200:
-			return response.json()
-		raise NotImplementedError(response.text)
+				if response.status_code == 200:
+					return response.json()
+				raise NotImplementedError(response.text)
+			except requests.exceptions.ConnectionError as e:
+				print(f"Connection error: {e}")
+				retries -= 1
+				time.sleep(delay)
+
+		raise Exception("Max retries exceeded. Unable to connect.")
