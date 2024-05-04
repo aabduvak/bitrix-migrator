@@ -1,0 +1,8 @@
+[tool.black]
+extend-exclude = '''
+/(
+  | migrations
+  | tests
+)/
+
+'''

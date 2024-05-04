@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-	"api",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -95,7 +95,7 @@ DATABASES = {
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASSWORD"),
         "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT")
+        "PORT": env("DB_PORT"),
     }
 }
 
